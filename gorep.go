@@ -9,6 +9,7 @@ import (
 	"os"
 	"path/filepath"
 	"regexp"
+	"sync"
 )
 
 var (
@@ -82,9 +83,13 @@ func readFromMultiFiles(fileList []string) {
 	} else {
 		destFile = nil
 	}
+	var wg sync.WaitGroup
+	// Improvement to read from multi files
 	for _, i := range fileList {
-		scanAndWrite(i, destFile)
+		wg.Add(1)
+		go scanAndWrite(&wg, i, destFile)
 	}
+	wg.Wait()
 }
 
 func readFromStdIn() {
@@ -95,12 +100,17 @@ func readFromStdIn() {
 	} else {
 		destFile = nil
 	}
-	scanAndWrite("", destFile)
+
+	var wg sync.WaitGroup
+	wg.Add(1)
+	go scanAndWrite(&wg, "", destFile)
+	wg.Wait()
 
 }
 
 // scan stdin or a file if given, match the pattern and write to file or stdout.
-func scanAndWrite(srcFilePath string, destFile *os.File) {
+func scanAndWrite(wg *sync.WaitGroup, srcFilePath string, destFile *os.File) {
+	defer wg.Done()
 	var scanner *bufio.Scanner
 	if srcFilePath != "" {
 		file, err := os.Open(srcFilePath)

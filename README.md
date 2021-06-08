@@ -39,7 +39,7 @@ a dummy text usually contains lorem ipsum
 - Ability to search for a string recursively in any of the files in a given directory.
 
 ```
-$ ./gorep "test" -d tests
+$ ./gorep -d tests test 
 tests/test1.txt:this is a test file
 tests/test1.txt:one can test a program by running test cases
 tests/inner/test2.txt:this file contains a test line
