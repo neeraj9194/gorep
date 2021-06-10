@@ -57,22 +57,26 @@ food
 - Write output to a file instead of a standard out for example,
 
 ```
-$ ./gorep -o out.txt lorem loreipsum.txt // It will create an out.txt file with the output from `gorep`.
+$ ./gorep -o out.txt lorem loreipsum.txt // It will create an out.txt file with the search output.
 $ cat out.txt
 lorem ipsum
 a dummy text usually contains lorem ipsum
 ```
 
 - Search in multiple files.
-- And alos search for a string recursively in any of the files in a given directory.
 
 ```
-$ ./gorep -d tests test 
+$ ./gorep "test" test1.txt test2.txt
 tests/test1.txt:this is a test file
 tests/test1.txt:one can test a program by running test cases
 tests/inner/test2.txt:this file contains a test line
+```
 
-$ ./gorep "test" test1.txt test2.txt
+
+- Or search for a string recursively in any of the files in a given directory.
+
+```
+$ ./gorep -d tests test 
 tests/test1.txt:this is a test file
 tests/test1.txt:one can test a program by running test cases
 tests/inner/test2.txt:this file contains a test line
