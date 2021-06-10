@@ -2,14 +2,47 @@
 A grep implementation in golang. A command line program that implements Unix command `grep` like functionality. 
 The program has the following features.
 
-- Ability to search for a string in a file. Feel free to assume case-sensitive and exact word matches if required for simplicity’s sake.
+## Install
+
+To install you can use makefile or build using commands
+
+```
+make build
+OR
+go build main.go
+```
+
+To run game,
+
+```
+make run
+OR
+./gorep   // after building
+```
+
+To run tests
+```
+make test
+OR
+go test ./... -v
+```
+
+## Usage
+
+Usage: ./gorep [OPTION]... [PATTERN] [FILES]... <br>
+Search for PATTERN in each FILE. <br>
+Example: ./gorep 'hello world' menu.txt main.txt
+
+## Examples
+
+- Search for a string in a file
 
 ```
 $ ./gorep "search_string" filename.txt
-I found the search_string in the file.
+filename.txt:L2:I found the search_string in the file.
 ```
 
-- Ability to search for a string from standard input (using pipe)
+- Search for a string from standard input (using pipe)
 
 ```
 $ ls | ./gorep foo
@@ -21,22 +54,17 @@ food
 ```
 
 
-- Ability to write output to a file instead of a standard out.
+- Write output to a file instead of a standard out for example,
 
 ```
-$ ./gorep -o out.txt lorem loreipsum.txt 
-```
-
-will create an out.txt file with the output from `gorep`. for example,
-
-```
+$ ./gorep -o out.txt lorem loreipsum.txt // It will create an out.txt file with the output from `gorep`.
 $ cat out.txt
 lorem ipsum
 a dummy text usually contains lorem ipsum
 ```
 
-- Ability to search in multiple files.
-- Ability to search for a string recursively in any of the files in a given directory.
+- Search in multiple files.
+- And alos search for a string recursively in any of the files in a given directory.
 
 ```
 $ ./gorep -d tests test 

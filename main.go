@@ -18,13 +18,25 @@ var (
 	fileNames  []string
 )
 
+var Usage = func() {
+	fmt.Fprintf(os.Stderr, `
+ Usage: ./gorep [OPTION]... [PATTERN] [FILES]...
+ Search for PATTERN in each FILE. 
+ Example: ./gorep 'hello world' menu.txt main.txt
+`)
+	fmt.Fprintln(os.Stderr, "\nOptions:")
+	flag.PrintDefaults()
+}
+
 func main() {
+	flag.Usage = Usage
 	flag.Parse()
 
 	// Pattern
 	pattern = fmt.Sprintf("(%v)", flag.Arg(0))
 	if len(flag.Args()) < 1 {
-		fmt.Println("Wrong Usage. \nTry './gorep --help' for more information.")
+		fmt.Println("Wrong Usage.")
+		Usage()
 		os.Exit(0)
 	}
 
