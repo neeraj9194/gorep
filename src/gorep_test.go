@@ -1,10 +1,9 @@
-package main
+package src
 
 import (
 	"io/ioutil"
 	"log"
 	"os"
-	"reflect"
 	"testing"
 )
 
@@ -26,15 +25,3 @@ func TestFileWrite(t *testing.T) {
 		log.Fatal(e)
 	}
 }
-
-func TestReadDirectory(t *testing.T) {
-	directory := "test_dir"
-	expected := []string{"test1.txt", "test2.txt"}
-	files, _ := ReadDirectory(directory)
-	if !reflect.DeepEqual(files, expected) {
-		t.Fatalf("Failed, %v %v are not equal.", files, expected)
-	}
-}
-
-
-
